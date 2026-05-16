@@ -4,13 +4,16 @@ import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * xxl-job 执行器配置
+ * 仅在 xxl.job.enabled=true 时启用，便于测试环境禁用
  */
 @Configuration
+@ConditionalOnProperty(name = "xxl.job.enabled", havingValue = "true")
 public class XxlJobConfig {
 
   private static final Logger log = LoggerFactory.getLogger(XxlJobConfig.class);

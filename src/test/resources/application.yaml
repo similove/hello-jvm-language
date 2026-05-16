@@ -35,6 +35,7 @@ mybatis-plus:
 
 xxl:
   job:
+    enabled: false
     admin:
       addresses:
     executor:
