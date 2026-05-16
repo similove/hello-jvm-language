@@ -18,6 +18,9 @@ COPY pom.xml ./
 RUN mvn -q -DskipTests dependency:go-offline
 
 # 拷贝源码并打包 (pom.xml 配置了将 jar 和依赖都输出到 libs 目录)
+COPY checkstyle.xml ./
+COPY codenarc.xml ./
+COPY scalastyle-config.xml ./
 COPY src ./src
 RUN mvn -q -DskipTests package
 
