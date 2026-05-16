@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjw.mapper.master.SysUserMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="SysUserResultMap" type="com.zjw.entity.SysUser">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSelect">
+        SELECT id, username, email, age FROM sys_user
+    </sql>
+
+    <!-- 查询所有 -->
+    <select id="selectList" resultMap="SysUserResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="SysUserResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="SysUserResultMap">
+        <include refid="baseSelect"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据用户名查询 -->
+    <select id="selectByUsername" resultMap="SysUserResultMap">
+        <include refid="baseSelect"/>
+        WHERE username = #{username}
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insert">
+        INSERT INTO sys_user (id, username, email, age)
+        VALUES (#{id}, #{username}, #{email}, #{age})
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        UPDATE sys_user
+        SET username = #{username}, email = #{email}, age = #{age}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="delete">
+        DELETE FROM sys_user WHERE id = #{id}
+    </delete>
+
+    <!-- 查询总数 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_user
+    </select>
+
+</mapper>

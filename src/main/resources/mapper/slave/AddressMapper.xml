@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjw.mapper.AddressMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="AddressResultMap" type="com.zjw.entity.Address">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="detail" property="detail"/>
+        <result column="desc" property="desc"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSelect">
+        SELECT id, name, detail, "desc" FROM address
+    </sql>
+
+    <!-- 查询所有 -->
+    <select id="selectList" resultMap="AddressResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="AddressResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="AddressResultMap">
+        <include refid="baseSelect"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据姓名查询 -->
+    <select id="selectByName" resultMap="AddressResultMap">
+        <include refid="baseSelect"/>
+        WHERE name = #{name}
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insert">
+        INSERT INTO address (id, name, detail, "desc")
+        VALUES (#{id}, #{name}, #{detail}, #{desc})
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        UPDATE address
+        SET name = #{name}, detail = #{detail}, "desc" = #{desc}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="delete">
+        DELETE FROM address WHERE id = #{id}
+    </delete>
+
+    <!-- 查询总数 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM address
+    </select>
+
+</mapper>

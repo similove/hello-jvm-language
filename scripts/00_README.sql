@@ -1,0 +1,25 @@
+-- =============================================
+-- 执行顺序说明
+-- =============================================
+--
+-- 请按以下顺序执行脚本:
+--
+-- 1. 先执行 MySQL 初始化脚本:
+--    mysql -u root -p12345678 < 01_mysql_init.sql
+--
+-- 2. 再执行 PostgreSQL 初始化脚本:
+--    psql -U postgres -d test -f 02_postgres_init.sql
+--
+-- ---------------------------------------------
+-- 快捷执行命令 (在项目根目录执行)
+-- ---------------------------------------------
+--
+-- Windows:
+--   mysql -u root -p12345678 test < scripts\01_mysql_init.sql
+--   psql -U postgres -d test -f scripts\02_postgres_init.sql
+--
+-- Linux/Mac:
+--   mysql -u root -p12345678 test < scripts/01_mysql_init.sql
+--   psql -U postgres -d test -f scripts/02_postgres_init.sql
+--
+-- =============================================

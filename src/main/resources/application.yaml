@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: hello-jvm-language
+  main:
+    banner-mode: off
+  datasource:
+    dynamic:
+      # 默认数据源
+      primary: master
+      # 严格匹配数据源，未匹配到指定数据源时抛异常
+      strict: true
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+          username: root
+          password: 12345678
+          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave:
+          url: jdbc:postgresql://localhost:5432/test
+          username: postgres
+          password: 12345678
+          driver-class-name: org.postgresql.Driver
+      druid:
+        initial-size: 5
+        min-idle: 5
+        max-active: 20
+        max-wait: 120000
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validation-query: SELECT 1
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+
+mybatis-plus:
+  banner: false
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.zjw.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: off
+
+xxl:
+  job:
+    admin:
+      addresses: # http://127.0.0.1:8080/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: hello-jvm-language
+      address:
+      ip:
+      port: 9999
+      logpath: ./logs/xxl-logs
+      logretentiondays: 30
+
+# SpringDoc OpenAPI 配置
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  show-actuator: false

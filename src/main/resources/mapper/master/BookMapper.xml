@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zjw.mapper.BookMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="BookResultMap" type="com.zjw.entity.Book">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="`desc`" property="desc"/>
+    </resultMap>
+
+    <!-- 基础查询SQL -->
+    <sql id="baseSelect">
+        SELECT id, name, `desc` FROM book
+    </sql>
+
+    <!-- 查询所有 -->
+    <select id="selectList" resultMap="BookResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="selectPage" resultMap="BookResultMap">
+        <include refid="baseSelect"/>
+        ORDER BY id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 根据ID查询 -->
+    <select id="selectById" resultMap="BookResultMap">
+        <include refid="baseSelect"/>
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据书名查询 -->
+    <select id="selectByName" resultMap="BookResultMap">
+        <include refid="baseSelect"/>
+        WHERE name = #{name}
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insert">
+        INSERT INTO book (id, name, `desc`)
+        VALUES (#{id}, #{name}, #{desc})
+    </insert>
+
+    <!-- 更新数据 -->
+    <update id="update">
+        UPDATE book
+        SET name = #{name}, `desc` = #{desc}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除数据 -->
+    <delete id="delete">
+        DELETE FROM book WHERE id = #{id}
+    </delete>
+
+    <!-- 查询总数 -->
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM book
+    </select>
+
+</mapper>

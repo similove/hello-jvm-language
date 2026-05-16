@@ -1,0 +1,13 @@
+.git
+.idea
+.mvn
+target
+libs
+logs
+app.log
+*.md
+scripts
+Dockerfile
+.dockerignore
+.gitignore
+.gitattributes

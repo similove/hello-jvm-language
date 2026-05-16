@@ -1,0 +1,48 @@
+<scalastyle>
+  <name>Scalastyle 代码规范配置</name>
+
+  <!-- 禁止 Tab 字符，必须使用空格 -->
+  <check level="error" class="org.scalastyle.file.FileTabChecker" enabled="true"/>
+
+  <!-- 行长度限制：最大 100 字符 -->
+  <check level="error" class="org.scalastyle.file.FileLineLengthChecker" enabled="true">
+    <parameters>
+      <parameter name="maxLineLength"><![CDATA[100]]></parameter>
+      <parameter name="tabSize"><![CDATA[2]]></parameter>
+    </parameters>
+  </check>
+
+  <!-- 禁止行尾空白 -->
+  <check level="error" class="org.scalastyle.file.WhitespaceEndOfLineChecker" enabled="true"/>
+
+  <!-- 类名必须 PascalCase -->
+  <check level="error" class="org.scalastyle.scalariform.ClassNamesChecker" enabled="true">
+    <parameters>
+      <parameter name="regex"><![CDATA[^[A-Z][A-Za-z0-9]*$]]></parameter>
+    </parameters>
+  </check>
+
+  <!-- 对象名必须 PascalCase -->
+  <check level="error" class="org.scalastyle.scalariform.ObjectNamesChecker" enabled="true">
+    <parameters>
+      <parameter name="regex"><![CDATA[^[A-Z][A-Za-z0-9]*$]]></parameter>
+    </parameters>
+  </check>
+
+  <!-- 方法名必须 camelCase -->
+  <check level="error" class="org.scalastyle.scalariform.MethodNamesChecker" enabled="true">
+    <parameters>
+      <parameter name="regex"><![CDATA[^[a-z][A-Za-z0-9]*$]]></parameter>
+    </parameters>
+  </check>
+
+  <!-- 禁止 sun._ 和 java.awt._ 等危险导入 -->
+  <check level="error" class="org.scalastyle.scalariform.IllegalImportsChecker" enabled="true">
+    <parameters>
+      <parameter name="illegalImports"><![CDATA[sun._,java.awt._]]></parameter>
+    </parameters>
+  </check>
+
+  <!-- 文件末尾须有换行（警告级别） -->
+  <check level="warning" class="org.scalastyle.file.NewLineAtEofChecker" enabled="true"/>
+</scalastyle>

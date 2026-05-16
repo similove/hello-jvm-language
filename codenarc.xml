@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://codenarc.org/ruleset/1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://codenarc.org/ruleset/1.0 http://codenarc.org/ruleset-schema.xsd"
+  xsi:noNamespaceSchemaLocation="http://codenarc.org/ruleset-schema.xsd">
+
+  <description>Groovy 代码规范检查规则集</description>
+
+  <!-- 导入规则：禁止通配符导入、禁止未使用导入 -->
+  <ruleset-ref path='rulesets/imports.xml'>
+    <!-- 允许静态导入不排在最前面（Groovy 惯用写法） -->
+    <exclude name='MisorderedStaticImport'/>
+  </ruleset-ref>
+
+  <!-- 基础规则：禁止空的 catch / finally / if 块 -->
+  <ruleset-ref path='rulesets/basic.xml'>
+    <!-- 排除与项目风格冲突的规则 -->
+    <exclude name='BooleanMethodReturnsNull'/>
+    <exclude name='BitwiseOperatorInConditional'/>
+    <exclude name='ConstantIfExpression'/>
+    <exclude name='AssignmentInConditional'/>
+  </ruleset-ref>
+
+</ruleset>
