@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
@@ -29,6 +28,9 @@ public final class CryptoUtil {
     if (plainText == null) {
       return null;
     }
+    if (StringUtil.isBlank(password)) {
+      throw new IllegalArgumentException("password must not be blank");
+    }
     try {
       byte[] iv = new byte[GCM_IV_LENGTH];
       SECURE_RANDOM.nextBytes(iv);
@@ -41,6 +43,8 @@ public final class CryptoUtil {
       System.arraycopy(iv, 0, output, 0, iv.length);
       System.arraycopy(encrypted, 0, output, iv.length, encrypted.length);
       return Base64.getEncoder().encodeToString(output);
+    } catch (IllegalArgumentException e) {
+      throw e;
     } catch (Exception e) {
       throw new IllegalStateException("Failed to encrypt content", e);
     }

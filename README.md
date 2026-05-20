@@ -1,16 +1,17 @@
 # hello-jvm-language
 
-一个基于 Spring Boot 4 的多语言 JVM 示例项目，Java、Kotlin、Scala、Groovy 共用同一个 Maven 构建，演示了多语言混合开发、MyBatis-Plus、动态数据源、OpenAPI 文档和 XXL-JOB 集成。
+一个基于 Spring Boot 4 的多语言 JVM 示例项目。Java、Kotlin、Scala、Groovy 共用同一个 Maven 构建，演示多语言混合开发、MyBatis-Plus、动态数据源、OpenAPI 文档、XXL-JOB，以及一组常用基础工具类。
 
 ## 项目特点
 
-- 单模块 Maven 工程，统一由 `pom.xml` 管理构建
+- 单模块 Maven 工程，统一由 `pom.xml` 管理
 - Java、Kotlin、Scala、Groovy 混合开发
 - MySQL 和 PostgreSQL 双数据源
 - MyBatis-Plus 数据访问
 - SpringDoc OpenAPI / Swagger UI 接口文档
 - XXL-JOB 任务调度示例
-- 使用 Jetty 作为内嵌容器
+- Jetty 作为内嵌容器
+- 内置常用工具类：时间、字符串、加解密、MD5、UUID、Base64、Jackson
 
 ## 技术栈
 
@@ -43,14 +44,14 @@ scripts/           数据库初始化脚本
 - MySQL
 - PostgreSQL
 
-数据库默认配置位于 [`src/main/resources/application.yaml`](src/main/resources/application.yaml)：
+默认数据库配置位于 [`src/main/resources/application.yaml`](src/main/resources/application.yaml)：
 
 - MySQL: `jdbc:mysql://localhost:3306/test`
 - PostgreSQL: `jdbc:postgresql://localhost:5432/test`
 - MySQL 账号: `root / 12345678`
 - PostgreSQL 账号: `postgres / 12345678`
 
-如需运行测试，`src/test/resources/application.yaml` 也使用了相同的数据库连接信息。
+测试环境配置位于 [`src/test/resources/application.yaml`](src/test/resources/application.yaml)，与主配置保持一致。
 
 ## 数据库初始化
 
@@ -100,7 +101,7 @@ mvn test -Dtest=SysUserServiceTest
 mvn spring-boot:run
 ```
 
-默认情况下应用会监听 Spring Boot 默认端口 `8080`，除非你在配置中另外指定。
+默认情况下应用监听 `8080` 端口，除非你在配置中另外指定。
 
 ### 清理
 
@@ -166,7 +167,54 @@ mvn clean
 - `port`: `9999`
 - `logpath`: `./logs/xxl-logs`
 
-如果你要真正接入调度中心，需要在 [`src/main/resources/application.yaml`](src/main/resources/application.yaml) 中补充 `xxl.job.admin.addresses`。
+如果要接入调度中心，需要在 [`src/main/resources/application.yaml`](src/main/resources/application.yaml) 中补充 `xxl.job.admin.addresses`。
+
+## 常用工具类
+
+项目已经补充了一组基础工具类，位于 `src/main/java/com/zjw/util/`：
+
+- `JacksonUtil`
+  - `toJson(...)`
+  - `toPrettyJson(...)`
+  - `writeValueAsBytes(...)`
+  - `parseObject(...)`
+  - `parseArray(...)`
+  - `parseList(...)`
+  - `readTree(...)`
+  - `convertValue(...)`
+- `TimeUtil`
+  - `now()`
+  - `format(...)`
+  - `parseLocalDateTime(...)`
+  - `parseLocalDate(...)`
+  - `addDays(...)`
+  - `addHours(...)`
+  - `toEpochMilli(...)`
+  - `fromEpochMilli(...)`
+- `StringUtil`
+  - `isBlank(...)`
+  - `defaultIfBlank(...)`
+  - `trimToNull(...)`
+  - `join(...)`
+  - `splitAndTrim(...)`
+  - `mask(...)`
+- `CryptoUtil`
+  - `aesEncrypt(...)`
+  - `aesDecrypt(...)`
+  - `sha256Hex(...)`
+  - `md5Hex(...)`
+- `Md5Util`
+  - `md5(...)`
+- `UuidUtil`
+  - `randomUuid()`
+  - `compactUuid()`
+- `Base64Util`
+  - `encode(...)`
+  - `decode(...)`
+  - `urlEncode(...)`
+  - `urlDecode(...)`
+
+这些工具类都配有基础单测，便于后续扩展和回归验证。
 
 ## 开发说明
 

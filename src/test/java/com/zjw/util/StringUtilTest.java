@@ -35,6 +35,6 @@ class StringUtilTest {
   void shouldJoinSplitAndMask() {
     assertEquals("a,b,c", StringUtil.join(List.of("a", "b", "c"), ","));
     assertEquals(List.of("a", "b", "c"), StringUtil.splitAndTrim("a, b, c", ","));
-    assertEquals("138****1234", StringUtil.mask("138001381234", 3, 4));
+    assertEquals("138*****1234", StringUtil.mask("138001381234", 3, 4));
   }
 }
